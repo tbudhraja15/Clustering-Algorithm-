@@ -1,0 +1,131 @@
+s = rand(50,50);  
+% create a random matrix
+number_centroid = 5;     
+% intilize number of cwntroid
+for m=1:number_centroid
+ intcent(m)=rand(1,1);         
+ %calculate random centroid
+end
+ 
+tarun_zero=zeros(50,50);
+[r,c]=size(s);  %calculate the size of row and c
+ 
+for m=1:number_centroid
+new(m)=0;
+end
+
+
+for m=1:number_centroid
+tarun(:,:,m)=tarun_zero;     % create zers matrix
+ 
+end
+ 
+for i=1:r
+    for j=1:c
+   for m=1:number_centroid
+a(m)=intcent(m)-s(i,j); 
+ab(m)=abs(a(m));
+ 
+   end
+   
+   
+E=0;
+   for m=1:number_centroid
+  
+ E = E+ ab(m);
+end
+sum_centroid = E;
+ 
+
+%% We have to calculate membership here
+%% Minimum difference= maximum membership
+%% we have to use max keyword after that
+
+%% According to this code
+%% Minimum difference= minimum membership
+%% we have to use min keyword after that
+
+
+
+for m=1:number_centroid
+a_per(m)=(ab(m)*100)/sum_centroid;
+end
+ %% a_per shows membership
+ %% a_per minimum means maximum membership
+ 
+ 
+ %% Therefore
+ %% We have to find minimum
+ %% means=== maximum membership
+[T,value]= min(a_per);
+
+
+     tarun(i,j, value)= s(i,j);
+   
+          new(value) =  new(value)+1;
+      
+    end
+end
+
+
+ for m=1:number_centroid
+ 
+n=0;
+ for ir=1:r
+    for jk=1:c
+        
+         n1= tarun(ir,jk,value);
+         n=n1+n;
+      end
+  end
+          old_centroids(m)=n/new(m);   
+ 
+ end  
+ 
+ tarun_zeros_new = zeros(50,50);
+ for m=1:number_centroid
+    new_new(m)=0;
+end
+for m=1:number_centroid
+    tarun_new(:,:,m) = tarun_zeros_new;
+end
+for iter=1:100
+    disp(iter)
+for ij=1:r
+    for kl=1:c
+        for m=1:number_centroid
+  a_new(m)= old_centroids(m)-s(ij,kl);
+  a_new1(m)=abs(a_new(m));
+        end
+   E=0;
+ for m=1:number_centroid
+  E = E+ a_new1(m);
+end
+sum_centroid = E;
+
+for m=1:number_centroid
+a_per1(m)=(a_new1(m)*100)/sum_centroid;
+end
+
+[T_new,value_new]= min(a_per1);
+
+  tarun_new(ir,kl,value_new)= s(ij,kl);
+        new_new(value_new)=new_new(value_new)+1;
+
+    end
+end
+  
+ 
+ for m=1:number_centroid 
+ h=0;
+  for irj=1:r
+       for jkj=1:c
+          nh=tarun_new(irj,jkj,value_new);
+          h=nh+h;
+      end
+  end
+          new_centroids(m)=h/new_new(m);
+ end
+     old_centroids=new_centroids;      
+ 
+end
